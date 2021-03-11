@@ -1,3 +1,5 @@
+import Excepciones.DatosNoValidosPase;
+
 public class Pase {
 
     /**
@@ -11,8 +13,10 @@ public class Pase {
      */
     private String numJugadorUno;
     private String numJugadorDos;
-    private int pasesExitosos;
-    private int pasesFallidos;
+    private Integer pasesExitosos;
+    private Integer pasesFallidos;
+
+    private Alineacion alineacion;
 
     /**
      * Parametros del constructor de la clase Pase
@@ -23,17 +27,32 @@ public class Pase {
      * @param pasesFallidos  - Numero de pases fallidos donde el jugador uno le paso 
      *                         el balon al jugador dos.
      */
-    public Pase(String numJugadorUno, String numJugadorDos, int pasesExitosos, int pasesFallidos) {
+    public Pase(String numJugadorUno, String numJugadorDos, Integer pasesExitosos, Integer pasesFallidos,Alineacion alineacion ) {
         this.numJugadorUno = numJugadorUno;
         this.numJugadorDos = numJugadorDos;
         this.pasesExitosos = pasesExitosos;
         this.pasesFallidos = pasesFallidos;
+        this.alineacion = alineacion;
     }
 
     /**
      * Constructor sin parametros de la clase Pase.
      */
     public Pase() {
+    }
+
+    public void validarDatosPase() throws DatosNoValidosPase{
+        if((numJugadorUno == null) || (numJugadorUno.trim().equals(""))){
+            throw new DatosNoValidosPase("El numJugadorUno no puede ser null o vacio");
+        }
+        if((numJugadorDos == null) || (numJugadorDos.trim().equals(""))){
+            throw new DatosNoValidosPase("El numJugadorDos no puede ser null o vacio");
+        }
+        if(pasesExitosos < 0){
+            throw new DatosNoValidosPase("La cantidad de pasesExitosos no pueder ser menor a 0");
+        }if(pasesFallidos < 0){
+            throw new DatosNoValidosPase("La cantidad de pasesFallidos no pueder ser menor a 0");
+        }
     }
 
     /**
@@ -73,7 +92,7 @@ public class Pase {
      * el balon al jugador dos.
      * @return
      */
-    public int getPasesExitosos() {
+    public Integer getPasesExitosos() {
         return pasesExitosos;
     }
 
@@ -82,7 +101,7 @@ public class Pase {
      * el balon al jugagor dos
      * @param pasesExitosos
      */
-    public void setPasesExitosos(int pasesExitosos) {
+    public void setPasesExitosos(Integer pasesExitosos) {
         this.pasesExitosos = pasesExitosos;
     }
 
@@ -91,7 +110,7 @@ public class Pase {
      * el balon al jugagor dos
      * @return
      */
-    public int getPasesFallidos() {
+    public Integer getPasesFallidos() {
         return pasesFallidos;
     }
 
@@ -100,8 +119,26 @@ public class Pase {
      * el balon al jugagor dos
      * @param pasesFallidos
      */
-    public void setPasesFallidos(int pasesFallidos) {
+    public void setPasesFallidos(Integer pasesFallidos) {
         this.pasesFallidos = pasesFallidos;
-    }   
+    }
+
+    /**
+     * 
+     * @return Retorna una alineacion 
+     */
+    public Alineacion getAlineacion() {
+        return alineacion;
+    }
+
+    /**
+     * Modifica la alineacion 
+     * @param alineacion
+     */
+    public void setAlineacion(Alineacion alineacion) {
+        this.alineacion = alineacion;
+    } 
+
+    
     
 }
