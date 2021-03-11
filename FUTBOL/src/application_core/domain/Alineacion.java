@@ -13,8 +13,7 @@ public class Alineacion {
      */
     private Integer id;
     private String tecnico;
-    private String formacion;
-    
+    private String formacion;    
     private List<Jugador> jugadores;
 
     /**
@@ -36,8 +35,8 @@ public class Alineacion {
     }
 
     /**
-     * Validar errores
-     * @throws DatosNoValidosAlineacion
+     * Metodo para validar que los datos del jugador sean correctos.
+     * @throws DatosNoValidosAlineacion - excepcion para validar los datos del jugador.
      */
     public void ValidarDatosAlineacion() throws DatosNoValidosAlineacion {
         if(id <= 0){

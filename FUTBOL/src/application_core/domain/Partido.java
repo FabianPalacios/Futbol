@@ -39,6 +39,10 @@ public class Partido {
     public Partido() {
     }
 
+    /**
+     * Metodo para validar que los datos del partido sean correctos.
+     * @throws DatosNoValidosPartido - Excepcion para validar los datos de la clase Partido.
+     */
     public void validarDatosPartido() throws DatosNoValidosPartido{
         if(id <= 0 ){
             throw new DatosNoValidosPartido("El id no pueder ser menor a 0");

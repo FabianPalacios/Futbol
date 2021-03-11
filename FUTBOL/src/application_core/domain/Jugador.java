@@ -2,6 +2,7 @@ import java.util.List;
 
 import Excepciones.DatosNoValidosJugador;
 import Excepciones.DatosNoValidosPase;
+import Excepciones.DivisionPorCero;
 
 public class Jugador {
 
@@ -39,6 +40,10 @@ public class Jugador {
     public Jugador() {
     }
 
+    /**
+     * Metodo para validar que los datos del jugador sean correctos.
+     * @throws DatosNoValidosJugador - excepcion para validar los datos del jugador.
+     */
     public void validarDatosJugador() throws DatosNoValidosJugador{
         if(id <= 0 ){
             throw new DatosNoValidosJugador("El id no pueder ser menor a 0");
@@ -55,6 +60,30 @@ public class Jugador {
     }
 
     /**
+     * Metodo para calcular el indice de pases que realiza el jugador.
+     * @return indice - retorna el indice de pases efectuados del jugador.
+     * @throws DivisionPorCero - excepcion para inpedir que se divida por cero.
+     */
+    public double calculoIndicePases() throws DivisionPorCero{
+        double indice = 0;
+        double pasesExitosos = 0;
+        double pasesFallidos = 0;
+
+        for (Pase p : pases) {
+            pasesExitosos += p.getPasesExitosos();
+            pasesFallidos += p.getPasesFallidos();            
+        }
+
+        if ((pasesExitosos+pasesFallidos)!=0 ){
+            indice = (pasesExitosos-pasesFallidos)/(pasesExitosos+pasesFallidos);
+        }
+        else {
+            throw new DivisionPorCero("No se puede dividir por cero");
+        }     
+        return indice;         
+    }
+
+    /**
     * Agregar un pase
     * @param pase
      * @throws DatosNoValidosPase
@@ -63,7 +92,6 @@ public class Jugador {
         pase.validarDatosPase();
         pases.add(pase);
     }
-
     
     /**
      * 
@@ -80,8 +108,6 @@ public class Jugador {
     public String getNombre() {
         return nombre;
     }
-    
-
 
     /**
      * Metodo set para modificar el nombre del jugador.
@@ -122,6 +148,5 @@ public class Jugador {
     public void setNumero(String numero) {
         this.numero = numero;
     }
-
   
 }

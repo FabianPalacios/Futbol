@@ -1,10 +1,8 @@
 import java.util.List;
-
 import Excepciones.DatosNoValidosEquipo;
 import Excepciones.DatosNoValidosJugador;
 
 public class Equipo {
-
 
     
     /**
@@ -33,6 +31,10 @@ public class Equipo {
     public Equipo() {
     }
 
+    /**
+     * Metodo para validar que los datos de la clase Equipo sean correctos.
+     * @throws DatosNoValidosEquipo - excepcion para validar los datos de la clase Equipo.
+     */
     public void validarDatosEquipo() throws DatosNoValidosEquipo {
         if(id <= 0){
             throw new DatosNoValidosEquipo("El id debe ser mayor a 0");

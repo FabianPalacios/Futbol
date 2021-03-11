@@ -41,6 +41,10 @@ public class Pase {
     public Pase() {
     }
 
+    /**
+     * Metodo para validar que los datos de la clase Pase sean correctos.
+     * @throws DatosNoValidosPase - excepcion para validar los datos del la clase Pase.
+     */
     public void validarDatosPase() throws DatosNoValidosPase{
         if((numJugadorUno == null) || (numJugadorUno.trim().equals(""))){
             throw new DatosNoValidosPase("El numJugadorUno no puede ser null o vacio");
@@ -50,7 +54,8 @@ public class Pase {
         }
         if(pasesExitosos < 0){
             throw new DatosNoValidosPase("La cantidad de pasesExitosos no pueder ser menor a 0");
-        }if(pasesFallidos < 0){
+        }
+        if(pasesFallidos < 0){
             throw new DatosNoValidosPase("La cantidad de pasesFallidos no pueder ser menor a 0");
         }
     }
