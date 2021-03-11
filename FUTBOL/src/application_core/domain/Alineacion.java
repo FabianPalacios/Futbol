@@ -1,7 +1,10 @@
 import java.util.List;
 
+import Excepciones.AlineacionIdeal;
 import Excepciones.DatosNoValidosAlineacion;
 import Excepciones.DatosNoValidosJugador;
+import Excepciones.JugadorAlineado;
+import Excepciones.JugadorNoAlineado;
 
 public class Alineacion {
 
@@ -54,11 +57,21 @@ public class Alineacion {
      * Adicionar Jugador (Validar error)
      * @param jugador
      * @throws DatosNoValidosJugador
+     * @throws JugadorAlineado
+     * @throws AlineacionIdeal
      */
-    public void adicionarJugador(Jugador jugador) throws DatosNoValidosJugador{
-        if (jugadores.size() <= 11){
+    public void adicionarJugador(Jugador jugador) throws DatosNoValidosJugador, JugadorAlineado, AlineacionIdeal{
+        if (jugadores.size() > 11){
             jugador.validarDatosJugador();
-            jugadores.add(jugador);
+            if(buscarJugador(jugador.getId(), jugador.getNumero())== null){
+                jugadores.add(jugador);
+            }
+            else{
+                throw new JugadorAlineado("El id o numero de un jugador ya existe en la alineación");
+            }   
+        }
+        else{
+            throw new AlineacionIdeal("La alineacion supera los 11 jugadores del partido");
         }
         
     }
@@ -68,9 +81,9 @@ public class Alineacion {
      * @param id identificador del jugador
      * @return
      */
-    public Jugador buscarJugador(int id) {
+    public Jugador buscarJugador(int id, String numero) {
         for (Jugador j : jugadores) {
-            if (j.getId() == id) {
+            if ((j.getId() == id) || (j.getNumero() == numero)) {
                 return j;
             }
         }
@@ -80,10 +93,17 @@ public class Alineacion {
     /**
      * Eliminar un jugador
      * @param id
+     * @throws JugadorNoAlineado
      */
-    public void  EliminarJugador(int id){
-        Jugador jugador = buscarJugador(id);
-        jugadores.remove(jugador);
+    public void  EliminarJugador(int id, String numero) throws JugadorNoAlineado{
+        Jugador jugador = buscarJugador(id, numero);
+        if (jugador == null){
+            throw new JugadorNoAlineado("El jugador no esta en la alineación");
+        }
+        else{
+            jugadores.remove(jugador);
+        }
+        
     }
 
 

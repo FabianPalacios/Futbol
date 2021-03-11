@@ -1,7 +1,5 @@
 import java.util.Date;
-import java.util.List;
 
-import Excepciones.DatosNoValidosEquipo;
 import Excepciones.DatosNoValidosPartido;
 
 public class Partido {
@@ -17,7 +15,7 @@ public class Partido {
     private Date fecha;
     private String ciudad;
     private String equipoRival;
-    private List<Equipo> equipos;
+    private Equipo equipos;
 
     /**
      * Parametrod del constructor de la clase Partido:
@@ -26,11 +24,12 @@ public class Partido {
      * @param ciudad       - Ciudad en la que se jugara el partido.
      * @param equipoRival  - Equipo rival con quin se jugara el partido.
      */
-    public Partido(Integer id, Date fecha, String ciudad, String equipoRival) {
+    public Partido(Integer id, Date fecha, String ciudad, String equipoRival, Equipo equipo) {
         this.id = id;
         this.fecha = fecha;
         this.ciudad = ciudad;
         this.equipoRival = equipoRival;
+        this.equipos = equipo;
     }
 
     /**
@@ -58,29 +57,6 @@ public class Partido {
         }
     }
 
-    /**
-     * Agregar un equipo al partido
-     * @param equipo
-     * @throws DatosNoValidosEquipo
-     */
-    public void adicionarEquipo(Equipo equipo) throws DatosNoValidosEquipo{
-        equipo.validarDatosEquipo();
-        equipos.add(equipo);
-    }
-
-    /**
-     * Buscar un Equipo por su identificación 
-     * @param id identificador del equipo
-     * @return
-     */
-    public Equipo buscarEquipo(int id) {
-        for (Equipo e : equipos) {
-            if (e.getId() == id) {
-                return e;
-            }
-        }
-        return null;
-    }
 
     /**
      * 

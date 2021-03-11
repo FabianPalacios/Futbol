@@ -1,6 +1,8 @@
 import java.util.List;
 import Excepciones.DatosNoValidosEquipo;
 import Excepciones.DatosNoValidosJugador;
+import Excepciones.JugadorAsignado;
+import Excepciones.JugadorNoAsignado;
 
 public class Equipo {
 
@@ -49,35 +51,50 @@ public class Equipo {
      * @param apellido Apellido Jugador
      * @param numero Numero de juego 
      * @throws DatosNoValidosJugador
+     * @throws JugadorAsignado
      */
-    public void adicionarJugador(Integer id,String nombre, String apellido, String numero) throws DatosNoValidosJugador{
+    public void adicionarJugador(Integer id,String nombre, String apellido, String numero) throws DatosNoValidosJugador, JugadorAsignado{
         Jugador jugador = new Jugador(id,nombre, apellido, numero);
         jugador.validarDatosJugador();
         
-        jugadores.add(jugador);
+        if (buscarJugador(jugador.getId(), jugador.getNumero()) == null){
+            jugadores.add(jugador);
+        }
+        else{
+            throw new JugadorAsignado("El id o numero del jugador ya existe");
+        }
+        
+        
     }
 
     /**
-     * Buscar un jugador por id;
+     * Buscar un jugador por id o que no se repita el numero del un jugador
      * @param id identificador del jugador
      * @return retorna el jugador con el id o null si no lo encuentra
      */
-    public Jugador buscarJugador(int id) {
+    public Jugador buscarJugador(int id, String numero) {
         for (Jugador j : jugadores) {
-            if (j.getId() == id) {
+            if ((j.getId() == id) || (j.getNumero() == numero)) {
                 return j;
             }
         }
         return null;
     }
 
+
     /**
-     * Eliminar un jugador por su id
+     * Eliminar un jugador por su id y numero
      * @param id identificador 
+     * @throws JugadorNoAsignado
      */
-    public void  eliminarJugador(int id){
-        Jugador jugador = buscarJugador(id);
-        jugadores.remove(jugador);
+    public void  eliminarJugador(int id, String numero) throws JugadorNoAsignado{
+        Jugador jugador = buscarJugador(id, numero);
+        if (jugador == null){
+            throw new JugadorNoAsignado("El jugador a eliminar no existe");
+        }
+        else{
+            jugadores.remove(jugador);
+        }
     }
     
     /**
