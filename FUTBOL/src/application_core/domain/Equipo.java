@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.List;
 
 import Excepciones.ArchivoVacio;
@@ -99,6 +100,10 @@ public class Equipo {
         }
     }
 
+    /**
+     * Metodo para enviar la informacion a las diferentes clases.
+     * @throws ArchivoVacio - Error si el archivo regresa vacio.
+     */
     public void llenadoDeDatos() throws ArchivoVacio{
 
         String datos = archivos.leerArchivoPlano();
@@ -113,10 +118,19 @@ public class Equipo {
              */
             
         } 
-
-        
-
+    
     }
+
+    /**
+     * Metodo para modificar el archivo plano
+     * @param datos         - Datos de entrada que se van a copiar en el archivo plano. 
+     * @throws IOException  - Excepcion para contolar errores de archivos planos
+     */
+    public void guardarArchivo(String datos) throws IOException{        
+        archivos.actualizarArchivo(datos);   
+    }
+
+
     
     /**
      * 

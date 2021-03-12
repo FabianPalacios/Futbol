@@ -40,7 +40,7 @@ public class GestorArchivos {
     }   
 
 
-    public void actualizarArchivo() throws IOException{
+    public void actualizarArchivo(String datos) throws IOException{
         FileWriter fichero = null;
         PrintWriter pw = null;
         try
@@ -48,9 +48,8 @@ public class GestorArchivos {
             fichero = new FileWriter("c:/prueba.txt");
 
             BufferedWriter bw = new BufferedWriter(fichero);
-                for (int i = 0; i < 10; i++){
-                    pw.write("Linea " + i);
-                }
+            pw.write(datos);
+                
             bw.close();
 
         } catch (Exception e) {
