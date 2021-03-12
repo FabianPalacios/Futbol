@@ -1,4 +1,6 @@
 import java.util.List;
+
+import Excepciones.ArchivoVacio;
 import Excepciones.DatosNoValidosEquipo;
 import Excepciones.DatosNoValidosJugador;
 import Excepciones.JugadorAsignado;
@@ -14,8 +16,8 @@ public class Equipo {
      */
     private Integer id;
     private String nombre;
-
     private List<Jugador> jugadores;
+    private GestorArchivos archivos;
 
 
     /**
@@ -95,6 +97,25 @@ public class Equipo {
         else{
             jugadores.remove(jugador);
         }
+    }
+
+    public void llenadoDeDatos() throws ArchivoVacio{
+
+        String datos = archivos.leerArchivoPlano();
+
+        if(datos.trim().equals("")){
+            throw new ArchivoVacio("El archivo plano no tiene datos");
+        }else{
+            /**
+             * Como no se sabemos como viene distribuida la informacion dentro del  
+             * archivo plano, no se puede organizarla distribuir la informacion en las
+             * diferentes clases y crear los objetos de cada clase.
+             */
+            
+        } 
+
+        
+
     }
     
     /**
